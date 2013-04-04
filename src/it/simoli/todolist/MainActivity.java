@@ -23,7 +23,7 @@ public class MainActivity extends FragmentActivity implements ItemViewDialogFrag
 	private static final String FILENAME = "list.json";
 	private static final int EDIT_TASK_REQUEST = 0;
 	private static ArrayList<ToDoRow> todoRows = null;	
-	private Context context = null;
+	private static Context context = null;
 	private MyAdapter adapter = null;
 	private ListView myListView = null;
 	private EditText myEditText = null;
@@ -97,9 +97,6 @@ public class MainActivity extends FragmentActivity implements ItemViewDialogFrag
 	public void editTask(ToDoRow row) {
 
 		Intent intent = new Intent(MainActivity.this, EditActivity.class);
-		Bundle bundle = new Bundle();
-//		bundle.put
-		intent.putExtras(bundle);
 		MainActivity.rowToEdit = row;
 		startActivityForResult(intent, EDIT_TASK_REQUEST);
 	}
@@ -137,7 +134,7 @@ public class MainActivity extends FragmentActivity implements ItemViewDialogFrag
 		saveData();
 	}
 
-	public void saveData() {
+	public static void saveData() {
 
 		try {
 			JsonUtil.writeJSON(todoRows, FILENAME, context);
@@ -165,7 +162,10 @@ public class MainActivity extends FragmentActivity implements ItemViewDialogFrag
 	public void onDialogEditClick(DialogFragment dialog) {
 
 		Log.v(TAG, "onDialogEditClick");
+		
+		// get row entity
 		ToDoRow row = ((ItemViewDialogFragment) dialog).getEntity();
+		
 		// start EditActivity
 		editTask(row);
 	}
@@ -180,19 +180,4 @@ public class MainActivity extends FragmentActivity implements ItemViewDialogFrag
 		saveData();
 		Util.showToast(context, getResources().getString(R.string.task_deleted_successfully));
 	}
-	
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    	
-        if (requestCode == EDIT_TASK_REQUEST) {
-            if (resultCode == RESULT_OK) {
-
-        		adapter.notifyDataSetChanged();
-        		saveData();
-                // A task was updated. Here we will just display
-                // a toast to the user.
-        		Util.showToast(context, getResources().getString(R.string.task_updated_successfully));   
-            }
-        }
-    }
-	
 }

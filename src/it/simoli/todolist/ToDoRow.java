@@ -1,47 +1,40 @@
 package it.simoli.todolist;
 
-
-
 public class ToDoRow {
+	
 	private String task;
 	private boolean checked;
-
+	
+	/* Constructors */
 	
 	public ToDoRow(String aTask) {
 		setTask(aTask);
 		setChecked(false);
 	}
 
-	public ToDoRow(String aTask, boolean aCheck) {
+	public ToDoRow(String aTask, boolean isChecked) {
 		setTask(aTask);
-		setChecked(aCheck);
+		setChecked(isChecked);
 	}
 
 	/* getters */
+	
 	public String getTask() {
 		return task;
 	}
+	
 	public boolean isChecked() {
 		return checked;
 	}
 	
 	/* setters */
-	public void setChecked(boolean checked) {
-		this.checked = checked;
+	
+	public void setChecked(boolean isChecked) {
+		checked = isChecked;
 	}
 	
-	public void setTask(String task) {
-		this.task = task;
+	public void setTask(String aTask) {
+		task = aTask;
 	}
-
 	
 }
-
-
-
-
-
-
-
-	
-	

@@ -16,13 +16,6 @@ In fact, it has a very fast and lightweight interface, because we care about you
 Enjoy!
 
 
-Features
---------
-
-- ListView of Custom Views (TextView + CheckBox)
-- JSON persistent storage
-
-
 Ideas
 -----
 
@@ -38,7 +31,8 @@ Bugs
 
 ### In order of priority:
 
-- Tasks with multiple rows doesn't look good. 
+- Tasks with multiple rows doesn't look good.
+- When I update a task leaving it empty, it allows me to do so. Would be better to delete the task instead.
 
 ---
 

@@ -1,9 +1,8 @@
 package it.simoli.todolist;
 
-import java.util.ArrayList;
-
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -12,17 +11,18 @@ import android.widget.EditText;
 
 public class EditActivity extends Activity {
 
-	private final String TAG = "EditActivity";	
-	private ArrayList<ToDoRow> todoRows = null;	
+	private final String TAG = "EditActivity";
+	private static Context context = null;	
+	private EditText myEditText = null;	
 	private Button cancelButton = null;
 	private Button updateButton = null;
 	private ToDoRow todoRow = null;
-	private EditText myEditText = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
+		context = getApplicationContext();
 		setContentView(R.layout.activity_edit);
 		
 		// Get references to UI
@@ -34,18 +34,21 @@ public class EditActivity extends Activity {
 		updateButton.setOnClickListener(updateListener);
 		cancelButton.setOnClickListener(cancelListener);
 		
-		this.todoRow = MainActivity.getRowToEdit();
+		// Get current entity
+		todoRow = MainActivity.getRowToEdit();
+		
+		// Set text to the entity text
 		myEditText.setText(todoRow.getTask());
-
-		todoRows = MainActivity.getTodoRows();
 	}
 
 	private OnClickListener cancelListener = new OnClickListener() {
 
 		public void onClick(View v) {
 
-			Log.v(TAG, "Cancel clicked!");
-			EditActivity.this.finish();
+			Log.v(TAG, "Cancel button clicked!");
+			
+      		// Kill this activity!
+			finish();
 		}
 	};
 	
@@ -53,12 +56,21 @@ public class EditActivity extends Activity {
 
 		public void onClick(View v) {
 
-			Log.v(TAG, "Update clicked!");
+			Log.v(TAG, "Update button clicked!");
 			
 			// Update the entity
 			todoRow.setTask(myEditText.getText().toString());
 			
-			EditActivity.this.finish();
+			// Save data
+			MainActivity.saveData();
+			
+            // A task was updated. Here we will just display
+            // a toast to the user.
+			String message = getResources().getString(R.string.task_updated_successfully);
+      		Util.showToast(context, message);   			
+			
+      		// Kill this activity!
+			finish();
 		}
 	};
 }
