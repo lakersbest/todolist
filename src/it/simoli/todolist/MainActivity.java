@@ -83,16 +83,20 @@ public class MainActivity extends FragmentActivity implements ItemViewDialogFrag
 			return false;
 
 		} else {
-			
-			int index = 0;
-			todoRows.add(index, new ToDoRow(task));
-			adapter.notifyDataSetChanged();
-			saveData();
-			myEditText.setText("");
+		
+			createTask(task);
 			return true;
 		}
 	}
 
+	public void createTask(String task) {
+		int index = 0;
+		todoRows.add(index, new ToDoRow(task, "2012-02-22 12:45:54"));
+		adapter.notifyDataSetChanged();
+		saveData();
+		myEditText.setText("");
+	}
+	
 	public void editTask(ToDoRow row) {
 
 		Intent intent = new Intent(MainActivity.this, EditActivity.class);

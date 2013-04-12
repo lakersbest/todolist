@@ -17,6 +17,12 @@ public class ToDoRow {
 		setTask(aTask);
 		setChecked(isChecked);
 	}
+	
+	public ToDoRow(String aTask, String createdAt) {
+		setTask(aTask);
+		setCreationDate(createdAt);
+		setChecked(false);
+	}
 
 	/* getters */
 	
@@ -42,8 +48,8 @@ public class ToDoRow {
 		task = aTask;
 	}
 
-	public void setCreationDate(String aCreationDate) {
-		creationDate = aCreationDate;
+	public void setCreationDate(String createdAt) {
+		creationDate = createdAt;
 	}
 	
 }

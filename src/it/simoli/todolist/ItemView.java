@@ -6,41 +6,35 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class ItemView extends RelativeLayout {
+public class ItemView extends LinearLayout {
 
-	private static final String TAG = "ItemView";	
+	private static final String TAG = "ItemView";
+	private Context context = null;	
 	private ToDoRow rowEntity = null;
-	
-	public ToDoRow getRowEntity() {
-		return rowEntity;
-	}
 
-	private Context context = null;
-	
 	public ItemView(Context context, AttributeSet attr) {
 		
 		super(context, attr);
-		
 		this.context = context;
 		
+		// Inflating XML
 		String infService = Context.LAYOUT_INFLATER_SERVICE;
 		LayoutInflater inflater;
 		inflater = (LayoutInflater) getContext().getSystemService(infService);
 		inflater.inflate(R.layout.item_view, this, true);
 		
-//		final LayoutInflater inflater = ((Activity) activity).getLayoutInflater();
-//		itemView = inflater.inflate(R.layout.item_view, null);
-//		itemView = View.inflate(activity, R.layout.item_view, null);
-		
 		CheckBox c = (CheckBox) findViewById(R.id.checked);
 		c.setOnClickListener(checkBoxListener);
 		
 		this.setOnLongClickListener(longClickListener);
-	}
+	}	
 	
+	public ToDoRow getRowEntity() {
+		return rowEntity;
+	}
 	
 	public void loadEntity(ToDoRow entity) {
 		
@@ -48,11 +42,12 @@ public class ItemView extends RelativeLayout {
 		
 		final TextView text = (TextView) findViewById(R.id.task);
 		final CheckBox check = (CheckBox) findViewById(R.id.checked);
+		final TextView date = (TextView) findViewById(R.id.creationdate);
 		
 		text.setText(rowEntity.getTask());
 		check.setChecked(rowEntity.isChecked());
+		date.setText(rowEntity.getCreationDate());
 	}
-	
 	
 	private OnClickListener checkBoxListener = new OnClickListener() {
 		
