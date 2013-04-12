@@ -16,20 +16,13 @@ In fact, it has a very fast and lightweight interface, because we care about you
 Enjoy!
 
 
-Features
---------
-
-- ListView of Custom Views (TextView + CheckBox)
-- JSON persistent storage
-
-
 Ideas
 -----
 
 ### In order of priority:
 
-- [i18n](https://developer.android.com/guide/topics/resources/localization.html)
-- Add creation date and time under the tasks
+- [i18n](https://developer.android.com/guide/topics/resources/localization.html) (italian language implemented since v1.1)
+- Add creation date and time under the tasks (under implementation in v1.1)
 - PreferenceScreen
 
 
@@ -38,7 +31,8 @@ Bugs
 
 ### In order of priority:
 
-- Tasks with multiple rows doesn't look good. 
+- Tasks with multiple rows doesn't look good.
+- When I update a task leaving it empty, it allows me to do so. Would be better to delete the task instead.
 
 ---
 
