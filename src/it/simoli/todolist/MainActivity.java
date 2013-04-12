@@ -21,7 +21,6 @@ public class MainActivity extends FragmentActivity implements ItemViewDialogFrag
 
 	private static final String TAG = "MainActivity";
 	private static final String FILENAME = "list.json";
-	private static final int EDIT_TASK_REQUEST = 0;
 	private static ArrayList<ToDoRow> todoRows = null;	
 	private static Context context = null;
 	private MyAdapter adapter = null;
@@ -98,7 +97,7 @@ public class MainActivity extends FragmentActivity implements ItemViewDialogFrag
 
 		Intent intent = new Intent(MainActivity.this, EditActivity.class);
 		MainActivity.rowToEdit = row;
-		startActivityForResult(intent, EDIT_TASK_REQUEST);
+		startActivity(intent);
 	}
 
 	@Override
