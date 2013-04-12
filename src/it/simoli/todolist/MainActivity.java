@@ -3,9 +3,7 @@ package it.simoli.todolist;
 import it.simoli.todolist.utils.JsonUtil;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 import android.os.Bundle;
 import android.content.Context;
@@ -77,25 +75,35 @@ public class MainActivity extends FragmentActivity implements ItemViewDialogFrag
 
 	public boolean addTask() {
 
-		String task = myEditText.getText().toString().trim();
+		String text = myEditText.getText().toString().trim();
 
-		if (Util.isNullOrEmpty(task)) {
+		if (Util.isNullOrEmpty(text)) {
 
 			Util.showToast(context, getResources().getString(R.string.no_empty_task_allowed));
 			return false;
 
 		} else {
 			
-			ToDoRow row = new ToDoRow(task);
-			int index = 0;
-			todoRows.add(index, row);
-			adapter.notifyDataSetChanged();
-			saveData();
+			createAndSaveTask(text);
 			
-			myEditText.setText("");			
+			// Delete the old text
+			myEditText.setText("");
 			
 			return true;
 		}
+	}
+	
+	public void createAndSaveTask(String text) {
+		
+		ToDoRow row = new ToDoRow(text);
+		
+		// Add row in the top
+		int index = 0;
+		todoRows.add(index, row);
+		
+		// Notify the adapter and save
+		adapter.notifyDataSetChanged();
+		saveData();
 	}
 	
 	public void editTask(ToDoRow row) {
