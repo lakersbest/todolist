@@ -10,7 +10,7 @@ public class ToDoRow implements Parcelable {
 	
 	private String task;
 	private boolean checked;
-	private String creationDate;
+	private String creationDate = "ciao";
 	
     public static final Parcelable.Creator<ToDoRow> CREATOR
 	  = new Parcelable.Creator<ToDoRow>() {
@@ -51,7 +51,12 @@ public class ToDoRow implements Parcelable {
 		// doesn't implement a writeBoolean() method.
         checked = in.readByte() == 1;
         creationDate = in.readString();
+	//	CREATOR.createFromParcel(in);        
     }
+	
+	public ToDoRow() {
+		super();
+	} 
 	
 	/* getters */
 	

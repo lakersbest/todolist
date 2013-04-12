@@ -40,6 +40,10 @@ public class EditActivity extends Activity {
 		
 		// Set text to the entity text
 //		myEditText.setText(todoRow.getTask());
+		
+		Bundle bundle = this.getIntent().getExtras();
+		bundle.setClassLoader(getClassLoader());
+		this.todoRow = bundle.getParcelable(MainActivity.BUNDLE_EDIT_KEY);
 	}
 
 	private OnClickListener cancelListener = new OnClickListener() {
