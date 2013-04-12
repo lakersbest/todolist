@@ -20,8 +20,7 @@ public class JsonUtil {
 
 	private static final String TAG = "JsonUtil";
 
-	public static String getJSON(ArrayList<ToDoRow> todoRows)
-			throws IOException {
+	public static String getJSON(ArrayList<ToDoRow> todoRows) throws IOException {
 
 		JSONArray json = new JSONArray();
 
@@ -32,6 +31,7 @@ public class JsonUtil {
 				JSONObject o = new JSONObject();
 				o.put("task", row.getTask());
 				o.put("checked", row.isChecked());
+				o.put("creationDate", row.getCreationDate());
 				json.put(o);
 			}
 
@@ -43,13 +43,11 @@ public class JsonUtil {
 		return json.toString();
 	}
 
-	public static void writeJSON(ArrayList<ToDoRow> todoRows, String fileName,
-			Context ctx) throws IOException {
+	public static void writeJSON(ArrayList<ToDoRow> todoRows, String fileName, Context ctx) throws IOException {
 
 		try {
 
-			FileOutputStream fos = ctx.openFileOutput(fileName,
-					Context.MODE_PRIVATE);
+			FileOutputStream fos = ctx.openFileOutput(fileName, Context.MODE_PRIVATE);
 			fos.write(getJSON(todoRows).getBytes());
 			fos.close();
 
@@ -59,8 +57,7 @@ public class JsonUtil {
 		}
 	}
 
-	public static String readJSON(String fileName, Context ctx)
-			throws FileNotFoundException, IOException {
+	public static String readJSON(String fileName, Context ctx) throws FileNotFoundException, IOException {
 
 		// Constructs a new StringBuffer containing an empty String
 		StringBuffer fileContent = new StringBuffer("");
@@ -88,8 +85,7 @@ public class JsonUtil {
 		return fileContent.toString();
 	}
 
-	public static void restoreDataFromJSON(String json,
-			ArrayList<ToDoRow> todoRows) {
+	public static void restoreDataFromJSON(String json, ArrayList<ToDoRow> todoRows) {
 
 		todoRows.clear();
 
@@ -101,10 +97,11 @@ public class JsonUtil {
 
 				JSONObject o = data.getJSONObject(i);
 
-				String task = o.getString("task");
-				boolean checked = o.getBoolean("checked");
+				String task 		= o.getString("task");
+				boolean checked 	= o.getBoolean("checked");
+				String creationDate = o.getString("creationDate"); 
 
-				ToDoRow row = new ToDoRow(task, checked);
+				ToDoRow row = new ToDoRow(task, checked, creationDate);
 				todoRows.add(row);
 			}
 

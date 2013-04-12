@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Todo List</string>
+    <string name="menu_settings">Impostazioni</string>
+    <string name="title_activity_list">ListActivity</string>
+    <string name="title_activity_edit">EditActivity</string>
+    <string name="button_text">Aggiungi</string>
+    <string name="update">Aggiorna</string>
+    <string name="cancel">Annulla</string>
+    <string name="edittext_hint">Scrivi qualcosa#8230;#8230;#8230;</string>
+    <string name="update_task">Aggiorna</string>
+    <string name="no_empty_task_allowed">Non puoi lasciarlo vuoto.</string>
+    <string name="task_updated_successfully">Attività aggiornata con successo</string>    
+    <string name="task_deleted_successfully">Attività eliminata con successo</string>
+    
+    <string-array name="actions_array">
+        <item>Modifica</item>
+        <item>Cancella</item>
+    </string-array>
+
+</resources>

@@ -10,7 +10,10 @@
     <string name="cancel">Cancel</string>
     <string name="edittext_hint">What\'s your task?</string>
     <string name="update_task">Update Task</string>
-
+    <string name="no_empty_task_allowed">You cannot leave it blank.</string>
+    <string name="task_updated_successfully">Task updated successfully</string>    
+    <string name="task_deleted_successfully">Task deleted successfully</string>
+    
     <string-array name="actions_array">
         <item>Edit</item>
         <item>Delete</item>
