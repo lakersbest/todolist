@@ -3,11 +3,27 @@ package it.simoli.todolist;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class ToDoRow {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class ToDoRow implements Parcelable {
 	
 	private String task;
 	private boolean checked;
 	private String creationDate;
+	
+    public static final Parcelable.Creator<ToDoRow> CREATOR
+	  = new Parcelable.Creator<ToDoRow>() {
+    	
+		public ToDoRow createFromParcel(Parcel in) {
+		    return new ToDoRow(in);
+		}
+		
+		public ToDoRow[] newArray(int size) {
+		    return new ToDoRow[size];
+		}
+	};
+
 	
 	/* Constructors */
 	
@@ -29,6 +45,14 @@ public class ToDoRow {
 		setCreationDate(createdAt);
 	}
 
+	private ToDoRow(Parcel in) {
+        task = in.readString();
+		// I did this because Parcel 
+		// doesn't implement a writeBoolean() method.
+        checked = in.readByte() == 1;
+        creationDate = in.readString();
+    }
+	
 	/* getters */
 	
 	public String getTask() {
@@ -66,6 +90,32 @@ public class ToDoRow {
 		Date date = new Date();
 		String formattedDate = dateFormat.format(date);
 		return formattedDate;
+	}
+    
+	/************************/
+	/* Parcelable's methods */
+	/************************/
+	
+	/**
+	 * Describe the kinds of special objects contained in this Parcelable's marshalled representation.
+	 */
+	@Override
+	public int describeContents() {
+		
+		return 0;
+	}
+
+	/** 
+	 * Flatten this object in to a Parcel. 
+	 */
+	@Override
+	public void writeToParcel(Parcel out, int flags) {
+
+		out.writeString(task);
+		// I did this because Parcel 
+		// doesn't implement a writeBoolean() method.
+		out.writeByte((byte) (checked ? 1 : 0));
+		out.writeString(creationDate);
 	}
 	
 }

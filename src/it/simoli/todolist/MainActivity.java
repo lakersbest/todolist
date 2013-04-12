@@ -19,6 +19,8 @@ import android.widget.ListView;
 
 public class MainActivity extends FragmentActivity implements ItemViewDialogFragment.ItemViewDialogListener {
 
+	public static final String BUNDLE_EDIT_KEY = "0";
+	private static final int REQUEST_CODE_EDIT_ROW = 0;
 	private static final String TAG = "MainActivity";
 	private static final String FILENAME = "list.json";
 	private static ArrayList<ToDoRow> todoRows = null;	
@@ -27,7 +29,6 @@ public class MainActivity extends FragmentActivity implements ItemViewDialogFrag
 	private ListView myListView = null;
 	private EditText myEditText = null;
 	private Button myButton = null;
-	private static ToDoRow rowToEdit = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -52,11 +53,6 @@ public class MainActivity extends FragmentActivity implements ItemViewDialogFrag
 
 		// Bind the event handler to the button
 		myButton.setOnClickListener(buttonListener);
-	}
-
-	public static ToDoRow getRowToEdit() {
-		
-		return rowToEdit;
 	}
 	
 	public static ArrayList<ToDoRow> getTodoRows() {
@@ -108,9 +104,10 @@ public class MainActivity extends FragmentActivity implements ItemViewDialogFrag
 	
 	public void editTask(ToDoRow row) {
 
-		Intent intent = new Intent(MainActivity.this, EditActivity.class);
-		MainActivity.rowToEdit = row;
-		startActivity(intent);
+		Intent intent = new Intent(this, EditActivity.class);
+		Bundle bundle = new Bundle();
+		bundle.putParcelable(BUNDLE_EDIT_KEY, row);
+		startActivityForResult(intent, REQUEST_CODE_EDIT_ROW, bundle);
 	}
 
 	@Override
@@ -191,5 +188,40 @@ public class MainActivity extends FragmentActivity implements ItemViewDialogFrag
 		adapter.notifyDataSetChanged();
 		saveData();
 		Util.showToast(context, getResources().getString(R.string.task_deleted_successfully));
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		
+		super.onActivityResult(requestCode, resultCode, data);
+		
+		if (data.getExtras().containsKey(BUNDLE_EDIT_KEY)) {
+			
+			// Get the row that was edited in the EditActivity
+			ToDoRow editedRow = data.getExtras().getParcelable(BUNDLE_EDIT_KEY);
+			String editedTask = editedRow.getTask();
+			
+			if (Util.isNullOrEmpty(editedTask)) {
+				
+				// The edited row is no more valid.
+				// We can delete it.
+				todoRows.remove(editedRow);
+
+	            // We display a toast to the user
+				// informing him/her that I just deleted the task.
+				String message = getResources().getString(R.string.task_deleted_successfully);
+	      		Util.showToast(context, message);
+				
+			} else {
+
+	            // A task was updated. Here we will just display
+	            // a toast to the user.
+				String message = getResources().getString(R.string.task_updated_successfully);
+	      		Util.showToast(context, message);   
+			}
+			
+			// Save data
+			saveData();
+		}
 	}
 }

@@ -3,6 +3,7 @@ package it.simoli.todolist;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -35,10 +36,10 @@ public class EditActivity extends Activity {
 		cancelButton.setOnClickListener(cancelListener);
 		
 		// Get current entity
-		todoRow = MainActivity.getRowToEdit();
+//		todoRow = MainActivity.getRowToEdit();
 		
 		// Set text to the entity text
-		myEditText.setText(todoRow.getTask());
+//		myEditText.setText(todoRow.getTask());
 	}
 
 	private OnClickListener cancelListener = new OnClickListener() {
@@ -46,6 +47,9 @@ public class EditActivity extends Activity {
 		public void onClick(View v) {
 
 			Log.v(TAG, "Cancel button clicked!");
+			
+			// The action was canceled
+			setResult(RESULT_CANCELED);
 			
       		// Kill this activity!
 			finish();
@@ -57,17 +61,16 @@ public class EditActivity extends Activity {
 		public void onClick(View v) {
 
 			Log.v(TAG, "Update button clicked!");
+
+			// Read the modified text
+			String modifiedText = myEditText.getText().toString();
 			
-			// Update the entity
-			todoRow.setTask(myEditText.getText().toString());
+			// Put the new text back to the Bundle
+			Intent intent = getIntent();
+			intent.putExtra(MainActivity.BUNDLE_EDIT_KEY, modifiedText);
 			
-			// Save data
-			MainActivity.saveData();
-			
-            // A task was updated. Here we will just display
-            // a toast to the user.
-			String message = getResources().getString(R.string.task_updated_successfully);
-      		Util.showToast(context, message);   			
+			// Return OK result
+			setResult(RESULT_OK);
 			
       		// Kill this activity!
 			finish();
