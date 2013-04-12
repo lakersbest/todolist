@@ -3,7 +3,9 @@ package it.simoli.todolist;
 import it.simoli.todolist.utils.JsonUtil;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import android.os.Bundle;
 import android.content.Context;
@@ -83,18 +85,17 @@ public class MainActivity extends FragmentActivity implements ItemViewDialogFrag
 			return false;
 
 		} else {
-		
-			createTask(task);
+			
+			ToDoRow row = new ToDoRow(task);
+			int index = 0;
+			todoRows.add(index, row);
+			adapter.notifyDataSetChanged();
+			saveData();
+			
+			myEditText.setText("");			
+			
 			return true;
 		}
-	}
-
-	public void createTask(String task) {
-		int index = 0;
-		todoRows.add(index, new ToDoRow(task, "2012-02-22 12:45:54"));
-		adapter.notifyDataSetChanged();
-		saveData();
-		myEditText.setText("");
 	}
 	
 	public void editTask(ToDoRow row) {

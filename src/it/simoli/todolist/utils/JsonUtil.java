@@ -31,6 +31,7 @@ public class JsonUtil {
 				JSONObject o = new JSONObject();
 				o.put("task", row.getTask());
 				o.put("checked", row.isChecked());
+				o.put("creationDate", row.getCreationDate());
 				json.put(o);
 			}
 
@@ -96,10 +97,11 @@ public class JsonUtil {
 
 				JSONObject o = data.getJSONObject(i);
 
-				String task = o.getString("task");
-				boolean checked = o.getBoolean("checked");
+				String task 		= o.getString("task");
+				boolean checked 	= o.getBoolean("checked");
+				String creationDate = o.getString("creationDate"); 
 
-				ToDoRow row = new ToDoRow(task, checked);
+				ToDoRow row = new ToDoRow(task, checked, creationDate);
 				todoRows.add(row);
 			}
 

@@ -1,5 +1,8 @@
 package it.simoli.todolist;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class ToDoRow {
 	
 	private String task;
@@ -11,17 +14,19 @@ public class ToDoRow {
 	public ToDoRow(String aTask) {
 		setTask(aTask);
 		setChecked(false);
+		setCreationDate(getCurrentDate());
 	}
 
 	public ToDoRow(String aTask, boolean isChecked) {
 		setTask(aTask);
 		setChecked(isChecked);
+		setCreationDate(getCurrentDate());
 	}
 	
-	public ToDoRow(String aTask, String createdAt) {
+	public ToDoRow(String aTask, boolean isChecked, String createdAt) {
 		setTask(aTask);
+		setChecked(isChecked);		
 		setCreationDate(createdAt);
-		setChecked(false);
 	}
 
 	/* getters */
@@ -50,6 +55,17 @@ public class ToDoRow {
 
 	public void setCreationDate(String createdAt) {
 		creationDate = createdAt;
+	}
+	
+	/* private methods */
+	
+	private String getCurrentDate() {
+		// TODO localization
+		String italianDateFormat = "dd/MM/yyyy HH:mm";
+		SimpleDateFormat dateFormat = new SimpleDateFormat(italianDateFormat);
+		Date date = new Date();
+		String formattedDate = dateFormat.format(date);
+		return formattedDate;
 	}
 	
 }
