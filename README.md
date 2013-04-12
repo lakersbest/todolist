@@ -21,8 +21,8 @@ Ideas
 
 ### In order of priority:
 
-- [i18n](https://developer.android.com/guide/topics/resources/localization.html)
-- Add creation date and time under the tasks
+- [i18n](https://developer.android.com/guide/topics/resources/localization.html) (italian language implemented since v1.1)
+- Add creation date and time under the tasks (under implementation in v1.1)
 - PreferenceScreen
 
 
