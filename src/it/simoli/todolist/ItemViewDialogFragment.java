@@ -1,5 +1,6 @@
 package it.simoli.todolist;
 
+import it.simoli.todolist.entity.ToDoRow;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;

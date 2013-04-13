@@ -1,8 +1,8 @@
 package it.simoli.todolist;
 
+import it.simoli.todolist.entity.ToDoRow;
 import android.os.Bundle;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
@@ -13,7 +13,6 @@ import android.widget.EditText;
 public class EditActivity extends Activity {
 
 	private final String TAG = "EditActivity";
-	private static Context context = null;	
 	private EditText myEditText = null;	
 	private Button cancelButton = null;
 	private Button updateButton = null;
@@ -23,7 +22,6 @@ public class EditActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
-		context = getApplicationContext();
 		setContentView(R.layout.activity_edit);
 		
 		// Get references to UI
@@ -51,6 +49,8 @@ public class EditActivity extends Activity {
 			// The action was canceled
 			setResult(RESULT_CANCELED); // code: 0
 			
+			// FIXME failure delivering result to MainActivity (NullPointerException)
+			
       		// Kill this activity!
 			finish();
 		}
@@ -69,10 +69,8 @@ public class EditActivity extends Activity {
 			entity.setTask(modifiedText);
 			
 			// Put the row into the existing bundle
-//			Bundle bundle = new Bundle();
 			Intent intent = getIntent();
 			intent.getExtras().putParcelable(MainActivity.BUNDLE_KEY, entity);
-	//		intent.putExtra(MainActivity.BUNDLE_EDIT_KEY, modifiedText);
 			
 			// Return OK result
 			setResult(RESULT_OK, intent); // code: -1

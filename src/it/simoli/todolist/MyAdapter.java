@@ -1,6 +1,9 @@
 package it.simoli.todolist;
 
+import it.simoli.todolist.entity.ToDoRow;
+
 import java.util.ArrayList;
+
 
 import android.content.Context;
 import android.view.View;

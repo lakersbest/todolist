@@ -1,5 +1,8 @@
-package it.simoli.todolist;
+package it.simoli.todolist.storage;
 
+
+
+import it.simoli.todolist.entity.ToDoRow;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -10,6 +13,7 @@ import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 
 import android.content.Context;
 import android.util.Log;

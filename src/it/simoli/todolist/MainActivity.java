@@ -1,5 +1,9 @@
 package it.simoli.todolist;
 
+import it.simoli.todolist.entity.ToDoRow;
+import it.simoli.todolist.storage.IStorageManager;
+import it.simoli.todolist.storage.JSONStorageManager;
+
 import java.util.ArrayList;
 
 import android.os.Bundle;
@@ -19,8 +23,8 @@ public class MainActivity extends FragmentActivity implements ItemViewDialogFrag
 	public static final String BUNDLE_KEY = "0xPippo";
 	private static final int REQUEST_CODE_EDIT_ROW = 1337;
 	private static final String TAG = "MainActivity";
-	private static ArrayList<ToDoRow> todoRows = null;	
-	private static Context context = null;
+	private ArrayList<ToDoRow> todoRows = null;	
+	private Context context = null;
 	private MyAdapter adapter = null;
 	private ListView myListView = null;
 	private EditText myEditText = null;

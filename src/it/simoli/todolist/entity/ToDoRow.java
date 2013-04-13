@@ -1,4 +1,4 @@
-package it.simoli.todolist;
+package it.simoli.todolist.entity;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
