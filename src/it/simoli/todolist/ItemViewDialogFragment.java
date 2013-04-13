@@ -35,8 +35,8 @@ public class ItemViewDialogFragment extends DialogFragment {
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		builder.setItems(R.array.actions_array, new DialogInterface.OnClickListener() {
 	               public void onClick(DialogInterface dialog, int which) {
-	               // The 'which' argument contains the index position
-	               // of the selected item
+		               // The 'which' argument contains the index position
+		               // of the selected item
 	            	   Log.v(TAG, "an action has been selected");
 
                        // Send the positive button event back to the host activity
