@@ -145,15 +145,18 @@ public class MainActivity extends FragmentActivity implements ItemViewDialogFrag
 			
 			// Get the row that was edited in the EditActivity
 			ToDoRow editedRow = data.getExtras().getParcelable(BUNDLE_KEY);
+
+			Log.v(TAG, "ENTITY: " + editedRow.toString());			
 			
 			// FIXME is this the same row we passed to EditActivity?
 			for (ToDoRow row : todoRows) {
 			  Log.v(TAG, row.equals(editedRow) ? "YES!" : "no");
 			}
 			
-			String editedTask = editedRow.getTask();
+			String editedText = editedRow.getTask();
+			Log.v(TAG, "New text: " + editedText);
 			
-			if (Util.isNullOrEmpty(editedTask)) {
+			if (Util.isNullOrEmpty(editedText)) {
 				
 				// The edited row is no more valid.
 				// We can delete it.
@@ -169,7 +172,7 @@ public class MainActivity extends FragmentActivity implements ItemViewDialogFrag
 	            // A task was updated. Here we will just display
 	            // a toast to the user.
 				String message = getResources().getString(R.string.task_updated_successfully);
-	      		Util.showToast(context, message);   
+	      		Util.showToast(context, message);
 			}
 			
 			/* Notifies the attached observers that the 

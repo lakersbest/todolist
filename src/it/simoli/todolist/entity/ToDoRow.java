@@ -12,19 +12,6 @@ public class ToDoRow implements Parcelable {
 	private boolean checked;
 	private String creationDate = "ciao";
 	
-    public static final Parcelable.Creator<ToDoRow> CREATOR
-	  = new Parcelable.Creator<ToDoRow>() {
-    	
-		public ToDoRow createFromParcel(Parcel in) {
-		    return new ToDoRow(in);
-		}
-		
-		public ToDoRow[] newArray(int size) {
-		    return new ToDoRow[size];
-		}
-	};
-
-	
 	/* Constructors */
 	
 	public ToDoRow(String aTask) {
@@ -44,19 +31,6 @@ public class ToDoRow implements Parcelable {
 		setChecked(isChecked);		
 		setCreationDate(createdAt);
 	}
-
-	private ToDoRow(Parcel in) {
-        task = in.readString();
-		// I did this because Parcel 
-		// doesn't implement a writeBoolean() method.
-        checked = in.readByte() == 1;
-        creationDate = in.readString();
-	//	CREATOR.createFromParcel(in);        
-    }
-	
-	public ToDoRow() {
-		super();
-	} 
 	
 	/* getters */
 	
@@ -100,6 +74,27 @@ public class ToDoRow implements Parcelable {
 	/************************/
 	/* Parcelable's methods */
 	/************************/
+
+	private ToDoRow(Parcel in) {
+        task = in.readString();
+		// I did this because Parcel 
+		// doesn't implement a writeBoolean() method.
+        checked = in.readByte() == 1;
+        creationDate = in.readString();
+	//	CREATOR.createFromParcel(in);        
+    }
+	
+    public static final Parcelable.Creator<ToDoRow> CREATOR
+	  = new Parcelable.Creator<ToDoRow>() {
+    	
+		public ToDoRow createFromParcel(Parcel in) {
+		    return new ToDoRow(in);
+		}
+		
+		public ToDoRow[] newArray(int size) {
+		    return new ToDoRow[size];
+		}
+	};	
 	
 	/**
 	 * Describe the kinds of special objects contained in this Parcelable's marshalled representation.

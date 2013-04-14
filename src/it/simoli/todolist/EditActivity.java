@@ -16,6 +16,7 @@ public class EditActivity extends Activity {
 	private EditText myEditText = null;	
 	private Button cancelButton = null;
 	private Button updateButton = null;
+	private Intent intent = null;
 	private ToDoRow entity = null;
 
 	@Override
@@ -33,8 +34,11 @@ public class EditActivity extends Activity {
 		updateButton.setOnClickListener(updateListener);
 		cancelButton.setOnClickListener(cancelListener);
 		
+		// Get the Intent
+		intent = getIntent();
+		
 		// Get current entity
-		entity = getIntent().getExtras().getParcelable(MainActivity.BUNDLE_KEY);
+		entity = intent.getExtras().getParcelable(MainActivity.BUNDLE_KEY);
 		
 		// Set text to the entity text
 		myEditText.setText(entity.getTask());		
@@ -47,7 +51,7 @@ public class EditActivity extends Activity {
 			Log.v(TAG, "Cancel button clicked!");
 			
 			// The action was canceled
-			setResult(RESULT_CANCELED, getIntent()); // code: 0
+			setResult(RESULT_CANCELED, intent); // code: 0
 
       		// Kill this activity!
 			finish();
@@ -60,6 +64,8 @@ public class EditActivity extends Activity {
 
 			Log.v(TAG, "Update button clicked!");
 
+			Log.v(TAG, "ENTITY: " + entity.toString());
+			
 			// Read the modified text
 			String modifiedText = myEditText.getText().toString();
 			
@@ -67,7 +73,6 @@ public class EditActivity extends Activity {
 			entity.setTask(modifiedText);
 			
 			// Put the row into the existing bundle
-			Intent intent = getIntent();
 			intent.getExtras().putParcelable(MainActivity.BUNDLE_KEY, entity);
 			
 			// Return OK result
