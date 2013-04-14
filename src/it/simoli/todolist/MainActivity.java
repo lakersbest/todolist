@@ -105,7 +105,11 @@ public class MainActivity extends FragmentActivity implements ItemViewDialogFrag
 		ToDoRow row = ((ItemViewDialogFragment) dialog).getEntity();
 		
 		// start EditActivity
-		editTask(row);
+		Intent intent = new Intent(this, EditActivity.class);
+		Bundle bundle = new Bundle();
+		bundle.putParcelable(BUNDLE_KEY, row);
+		intent.putExtras(bundle);
+		startActivityForResult(intent, REQUEST_CODE_EDIT_ROW);
 	}
 
 	@Override
@@ -183,55 +187,36 @@ public class MainActivity extends FragmentActivity implements ItemViewDialogFrag
 
 		public void onClick(View v) {
 
-			Log.v(TAG, "Button clicked!");
-			addTask();
+			Log.v(TAG, "Button clicked! Creating new row...");
+
+			// Get text
+			String text = myEditText.getText().toString().trim();
+
+			if (Util.isNullOrEmpty(text)) {
+
+				Util.showToast(context, getResources().getString(R.string.no_empty_task_allowed));
+
+			} else {
+				
+				// Create new row
+				ToDoRow row = new ToDoRow(text);
+				
+				// Add row in the top
+				int index = 0;
+				todoRows.add(index, row);
+				
+				/* Notifies the attached observers that the 
+				 * underlying data has been changed and any 
+				 * View reflecting the data set should refresh itself. 
+				 */
+				adapter.notifyDataSetChanged();
+				
+				// Save data into the internal storage
+				storageManager.saveData();
+				
+				// Delete the old text
+				myEditText.setText("");
+			}			
 		}
 	};
-
-	private boolean addTask() {
-
-		String text = myEditText.getText().toString().trim();
-
-		if (Util.isNullOrEmpty(text)) {
-
-			Util.showToast(context, getResources().getString(R.string.no_empty_task_allowed));
-			return false;
-
-		} else {
-			
-			createAndSaveTask(text);
-			
-			// Delete the old text
-			myEditText.setText("");
-			
-			return true;
-		}
-	}
-	
-	private void createAndSaveTask(String text) {
-		
-		ToDoRow row = new ToDoRow(text);
-		
-		// Add row in the top
-		int index = 0;
-		todoRows.add(index, row);
-		
-		/* Notifies the attached observers that the 
-		 * underlying data has been changed and any 
-		 * View reflecting the data set should refresh itself. 
-		 */
-		adapter.notifyDataSetChanged();
-		
-		// Save data into the internal storage
-		storageManager.saveData();
-	}
-	
-	private void editTask(ToDoRow row) {
-
-		Intent intent = new Intent(this, EditActivity.class);
-		Bundle bundle = new Bundle();
-		bundle.putParcelable(BUNDLE_KEY, row);
-		intent.putExtras(bundle);
-		startActivityForResult(intent, REQUEST_CODE_EDIT_ROW);
-	}
 }
