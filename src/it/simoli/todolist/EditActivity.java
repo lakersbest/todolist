@@ -47,10 +47,8 @@ public class EditActivity extends Activity {
 			Log.v(TAG, "Cancel button clicked!");
 			
 			// The action was canceled
-			setResult(RESULT_CANCELED); // code: 0
-			
-			// FIXME failure delivering result to MainActivity (NullPointerException)
-			
+			setResult(RESULT_CANCELED, getIntent()); // code: 0
+
       		// Kill this activity!
 			finish();
 		}

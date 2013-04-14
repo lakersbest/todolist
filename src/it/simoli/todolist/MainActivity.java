@@ -216,7 +216,7 @@ public class MainActivity extends FragmentActivity implements ItemViewDialogFrag
 				
 				// Delete the old text
 				myEditText.setText("");
-			}			
+			}
 		}
 	};
 }
