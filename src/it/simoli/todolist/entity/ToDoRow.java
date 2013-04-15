@@ -3,6 +3,7 @@ package it.simoli.todolist.entity;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import android.annotation.SuppressLint;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -60,8 +61,26 @@ public class ToDoRow implements Parcelable {
 		creationDate = createdAt;
 	}
 	
+	/* public methods */
+	
+	@Override
+	public String toString() {
+		return "ToDoRow: task = " + getTask() +
+				", checked: " + isChecked() +
+				", creationDate: " + getCreationDate();
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		return getTask().equals(((ToDoRow) obj).getTask()) &&
+				isChecked() == ((ToDoRow) obj).isChecked() &&
+				getCreationDate().equals(((ToDoRow) obj).getCreationDate());
+	}
+	
+	
 	/* private methods */
 	
+	@SuppressLint("SimpleDateFormat")
 	private String getCurrentDate() {
 		// TODO localization
 		String italianDateFormat = "dd/MM/yyyy HH:mm";

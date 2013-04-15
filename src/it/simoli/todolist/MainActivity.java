@@ -20,9 +20,9 @@ import android.widget.ListView;
 
 public class MainActivity extends FragmentActivity implements ItemViewDialogFragment.ItemViewDialogListener {
 
-	public static final String BUNDLE_KEY = "0xPippo";
-	private static final int REQUEST_CODE_EDIT_ROW = 1337;
 	private static final String TAG = "MainActivity";
+	public static final String BUNDLE_KEY = "0xPippo";
+	private static final int REQUEST_CODE_EDIT_ROW = 1337;	
 	private ArrayList<ToDoRow> todoRows = null;	
 	private Context context = null;
 	private MyAdapter adapter = null;
@@ -145,8 +145,9 @@ public class MainActivity extends FragmentActivity implements ItemViewDialogFrag
 			
 			// Get the row that was edited in the EditActivity
 			ToDoRow editedRow = data.getExtras().getParcelable(BUNDLE_KEY);
-
-			Log.v(TAG, "ENTITY: " + editedRow.toString());			
+			
+			// Debugging
+			Log.v(TAG, "ENTITY (back to main): " + editedRow.toString());			
 			
 			// FIXME is this the same row we passed to EditActivity?
 			for (ToDoRow row : todoRows) {
@@ -154,7 +155,6 @@ public class MainActivity extends FragmentActivity implements ItemViewDialogFrag
 			}
 			
 			String editedText = editedRow.getTask();
-			Log.v(TAG, "New text: " + editedText);
 			
 			if (Util.isNullOrEmpty(editedText)) {
 				
@@ -197,6 +197,8 @@ public class MainActivity extends FragmentActivity implements ItemViewDialogFrag
 
 			if (Util.isNullOrEmpty(text)) {
 
+	            // Task is empty. Here we will just display
+	            // a toast to the user.
 				Util.showToast(context, getResources().getString(R.string.no_empty_task_allowed));
 
 			} else {
