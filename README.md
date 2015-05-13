@@ -47,4 +47,4 @@ Contributors
 
 ---
 
-Want to collaborate? Send us a [pull request](https://help.github.com/articles/creating-a-pull-request) and you'll automatically become a contributor.
+Want to collaborate? Send us a [pull request](https://help.github.com/articles/creating-a-pull-request) and if it gets merged you'll automatically become a contributor.
